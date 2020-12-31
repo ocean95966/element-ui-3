@@ -9,9 +9,6 @@ export default defineComponent({
             instance
         }
      },
-     expose(){
-
-     },
      render() {
         return (<div></div>) 
      }

@@ -1,10 +1,11 @@
 import { defineComponent, getCurrentInstance, Teleport } from 'vue'
-import { IProps } from './props'
 
-const useTeleport = () => {
+const usePopup = () => {
   const open = () => {}
 
-  return {}
+  return {
+    open
+  }
 }
 
-export default useTeleport
+export default usePopup
