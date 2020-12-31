@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { usePopup } from '../../../src/use/popup/index'
+import { usePopup, PopupComponent } from '../../../src/use/popup/index'
 import { onMounted, h, defineComponent } from 'vue'
-import PopupComponent from '../../../src/use/popup/PopupComponent.jsx'
 
 describe('open a teleport', () => {
   it('should render teleport when call open method', () => {
