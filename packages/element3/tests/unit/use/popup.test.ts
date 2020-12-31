@@ -1,17 +1,12 @@
 import { mount } from '@vue/test-utils'
 import { usePopup } from '../../../src/use/popup/index'
-import { onMounted, Teleport, h, defineComponent } from 'vue'
+import { onMounted, h, defineComponent } from 'vue'
 import PopupComponent from '../../../src/use/popup/PopupComponent.jsx'
 
 describe('open a teleport', () => {
   it('should render teleport when call open method', () => {
-    const component = defineComponent({
-      setup() {
-        return () => h('h1', 'hello word')
-      }
-    })
     const wrapper = mount({
-      components: { component },
+      components: { PopupComponent },
       template: `
         <PopupComponent>
               <div id="teleport">title</div>
