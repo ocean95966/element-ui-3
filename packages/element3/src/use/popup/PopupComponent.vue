@@ -4,7 +4,6 @@ import { defineComponent, Teleport, ref, getCurrentInstance } from 'vue'
 export default (component, warpperProps = {}) =>
   defineComponent({
     render(props, bindings) {
-      console.log(props, bindings)
       return (
         <Teleport to="body" v-if="show">
           <div class="el-popup__wrapper">

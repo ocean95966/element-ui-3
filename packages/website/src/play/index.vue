@@ -1,11 +1,13 @@
 <template>
-  <popupComponent msg="hello word" />
+  <Dialog abc="hello word" />
 </template>
 <script>
 import { defineComponent } from 'vue'
-import popupComponent from 'C:/phpstudy_pro_new/WWW/element3/packages/element3/tests/unit/use/popupComponent'
+import Dialog from './Dialog'
+
 export default defineComponent({
-  components: { popupComponent },
+  components: { Dialog },
+
   data() {
     return {
       tabPosition: 'top'
