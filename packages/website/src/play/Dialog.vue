@@ -16,7 +16,7 @@ export default defineComponent({
     })
 
     return () => (
-      <popupComponent {...attrs} {...props}>
+      <popupComponent {...attrs} {...{ props, show: props.show }}>
         {' '}
         {slots.default()}
       </popupComponent>

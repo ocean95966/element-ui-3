@@ -1,3 +1,9 @@
-export interface IProps {
-  open: () => void
+export const props = {
+   show: {
+      type: Boolean,
+      default: true
+   },
+   duration: {
+     type: Number
+   }  
 }

@@ -4,7 +4,6 @@ import { PopupComponent } from '../../../src/use/popup/index.ts'
 
 const component = defineComponent({
   render({ $props, $attrs, $slots }) {
-    console.log($slots)
     return (
       <div>
         <h1>这里是框架代码</h1>
