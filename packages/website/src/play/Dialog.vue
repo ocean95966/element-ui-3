@@ -1,6 +1,6 @@
 <script lang="jsx">
 import { defineComponent } from 'vue'
-import popupComponent from 'C:/phpstudy_pro_new/WWW/element3/packages/element3/tests/unit/use/popupComponent.vue'
+import popupComponent from '../../../element3/src/use/popup/PopupComponent'
 
 export default defineComponent({
   render(props) {
