@@ -3,8 +3,8 @@ import { defineComponent, h } from 'vue'
 import { PopupComponent } from '../../../src/use/popup/index.ts'
 
 const component = defineComponent({
-  setup(props) {
-    return () => h('h1', ...props, 'hello word')
+  render({ $props, $attrs }) {
+    return <h1>牛逼</h1>
   }
 })
 

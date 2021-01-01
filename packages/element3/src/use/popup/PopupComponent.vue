@@ -1,23 +1,17 @@
 <script lang="jsx">
-import { defineComponent, Teleport, ref, getCurrentInstance } from 'vue'
+import { defineComponent, Teleport, toRaw, ref, getCurrentInstance } from 'vue'
 
-export default (component, warpperProps = {}) =>
+export default (component) =>
   defineComponent({
-    render(props, bindings) {
+    render({ $props, $attrs }) {
+      console.log(toRaw($attrs), 8888)
       return (
-        <Teleport to="body" v-if="show">
-          <div class="el-popup__wrapper">
-            <component {...warpperProps} {...props} />
+        <Teleport to="body">
+          <div class="el-popup__wrapper" {...$props} {...$attrs}>
+            <component />
           </div>
         </Teleport>
       )
     }
   })
-
-function useExpose(apis) {
-  const instance = getCurrentInstance()
-  if (instance) {
-    Object.assign(instance.proxy, apis)
-  }
-}
 </script>
