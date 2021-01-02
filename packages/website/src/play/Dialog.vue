@@ -3,7 +3,13 @@ import { defineComponent, getCurrentInstance, toRaw, reactive } from 'vue'
 import popupComponent from 'C:/phpstudy_pro_new/WWW/element3/packages/element3/tests/unit/use/popupComponent.vue'
 
 export default defineComponent({
-  setup(props, { attrs, slots }) {
+  props: {
+    modelValue: {
+      type: Boolean
+    }
+  },
+  emits: ['update:modelValue'],
+  setup(props, { attrs, slots, emit }) {
     // 这里是框架的export
     /**
      * 这里是处理各自组建的业务逻辑的
@@ -14,11 +20,17 @@ export default defineComponent({
     const state = reactive({
       count: 0
     })
+    console.log(attrs, emit)
+    const close = () => emit('update:modelValue', false)
 
+    setTimeout(() => {
+       close()
+    }, 2000);
     return () => (
-      <popupComponent {...attrs} {...{ props, show: props.show }}>
+      <popupComponent {...attrs} {...{ props, show: props.modelValue }}>
         {' '}
         {slots.default()}
+        {slots.footer()}
       </popupComponent>
     )
   }
