@@ -11,7 +11,7 @@
 <script lang="jsx">
 import { defineComponent, reactive, computed, toRaw, Teleport, ref, getCurrentInstance, onBeforeMount } from 'vue'
 import { props } from './props.ts'
-import { increateZindex } from './PopupManager.ts'
+import { useZindex } from './use.ts'
 
 let zIndex = 2000
 
@@ -23,7 +23,7 @@ export default defineComponent({
     props,
     setup() {
        
-       const zIndex = computed(() => increateZindex(), {immediate: true})
+       const zIndex = useZindex()
 
        return {
           zIndex
