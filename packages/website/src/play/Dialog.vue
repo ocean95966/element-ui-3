@@ -27,7 +27,10 @@ export default defineComponent({
        close()
     }, 2000);
     return () => (
-      <popupComponent {...attrs} {...{ props, show: props.modelValue }}>
+      if () {
+        
+      }
+      <popupComponent {...attrs} {...{ props }}>
         {' '}
         {slots.default()}
         {slots.footer()}
