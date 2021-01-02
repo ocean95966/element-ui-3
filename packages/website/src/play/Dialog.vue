@@ -31,7 +31,7 @@ const createComponent = (type, message) => {
       const close = () => emit('update:modelValue', false)
 
       setTimeout(() => {
-      //  close()
+       close()
         console.log(props)
       }, 2000)
       return () => {
