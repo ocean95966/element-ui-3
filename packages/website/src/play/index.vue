@@ -1,5 +1,5 @@
 <template>
-  <Dialog title="hello word" :show="false">
+  <Dialog title="hello word" :show="true">
     <span @click="clickHandle">fdsfsdafsdafsdaf</span>
   </Dialog>
 </template>

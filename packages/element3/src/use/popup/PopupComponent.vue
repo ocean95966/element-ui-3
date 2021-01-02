@@ -3,8 +3,7 @@
 <script lang="jsx">
 import { defineComponent, Teleport, toRaw, ref, getCurrentInstance } from 'vue'
 import { props } from './props.ts'
-export default (component) =>
-  defineComponent({
+export default defineComponent({
     props,
     render({ $props, $attrs, $slots }) {
       console.log(toRaw($props))
@@ -12,14 +11,12 @@ export default (component) =>
              return (
                <Teleport to="body" >
                 <div class="el-popup__wrapper">
-                  <component {...$props}  {...$attrs}>
-                    {' '}
-                    {$slots.default()}{' '}
-                  </component>
+                   {$slots.default()}{' '}
                 </div>
               </Teleport>
               )
       }
     }
   })
+
 </script>
