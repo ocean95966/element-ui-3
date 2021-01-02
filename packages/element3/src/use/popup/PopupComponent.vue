@@ -1,4 +1,7 @@
 <style scope>
+  .body-positon-relative {
+     position: relative;
+  }
   .el-popup__wrapper {
     position: fixed;
     margin: 0;
@@ -11,7 +14,7 @@
 <script lang="jsx">
 import { defineComponent, reactive, computed, toRaw, Teleport, ref, getCurrentInstance, onBeforeMount } from 'vue'
 import { props } from './props.ts'
-import { useZindex } from './use.ts'
+import { useZindex, useBodyStyle } from './use.ts'
 
 let zIndex = 2000
 
@@ -24,7 +27,7 @@ export default defineComponent({
     setup() {
        
        const zIndex = useZindex()
-
+       useBodyStyle()
        return {
           zIndex
        }
