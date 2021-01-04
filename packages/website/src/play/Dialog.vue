@@ -30,14 +30,11 @@ const createComponent = (type, message) => {
 
       const close = () => emit('update:modelValue', false)
 
-      setTimeout(() => {
-        close()
-        console.log(props)
-      })
+     
       return () => {
         if (props.modelValue) {
           return (
-            <PopupComponent {...attrs} {...{ props }}>
+            <PopupComponent {...attrs} {...{ props }} {...{mark: true}}>
               {type} {message}
               <br />
               {slots.default()}
