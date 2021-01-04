@@ -1,4 +1,3 @@
-import usePopup from './popup.ts'
-import PopupComponent from './PopupComponent'
+import PopupComponent from './PopupComponent.vue'
 
-export { usePopup, PopupComponent }
+export { PopupComponent }

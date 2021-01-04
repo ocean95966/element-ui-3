@@ -1,15 +1,36 @@
 <template>
-  <Dialog abc="hello word" />
+  <div>
+    <Dialog title="hello word" v-model="show">
+      <span @click="clickHandle">fdsfsdafsdafsdaf</span>
+      <template v-slot:footer>
+        <div class="dialog-footer" style="color: red">this is footer</div>
+      </template>
+    </Dialog>
+    <Dialog title="hello word" v-model="show">
+      <span @click="clickHandle">fdsfsdafsdafsdaf</span>
+      <template v-slot:footer>
+        <div class="dialog-footer" style="color: red">this is footer</div>
+      </template>
+    </Dialog>
+  </div>
 </template>
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import Dialog from './Dialog'
 
 export default defineComponent({
   components: { Dialog },
 
-  data() {
+  setup() {
+    const count = ref(0)
+    const clickHandle = () => count.value++
+    const show = ref(true)
+    watch(count, () => {
+      console.log('```````````', count.value)
+    })
     return {
+      clickHandle,
+      show,
       tabPosition: 'top'
     }
   }

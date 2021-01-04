@@ -1,3 +1,6 @@
-export interface IProps {
-  open: () => void
+export const props = {
+  modal: {
+    type: Boolean,
+    default: false
+  }
 }
