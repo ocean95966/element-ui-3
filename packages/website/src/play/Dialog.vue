@@ -1,6 +1,6 @@
 <script lang="jsx">
 import { defineComponent, getCurrentInstance, toRaw, reactive } from 'vue'
-import { PopupComponent } from 'C:/phpstudy_pro_new/WWW/element3/packages/element3/src/use/popup/index.ts'
+import { PopupComponent } from 'A:/www/element3/packages/element3/src/use/popup/index.ts'
 
 const createComponent = (type, message) => {
   return defineComponent({
@@ -34,7 +34,7 @@ const createComponent = (type, message) => {
       return () => {
         if (props.modelValue) {
           return (
-            <PopupComponent {...attrs} {...{ props }} {...{mark: true}}>
+            <PopupComponent {...attrs} {...{ props }} {...{mask: true}}>
               {type} {message}
               <br />
               {slots.default()}

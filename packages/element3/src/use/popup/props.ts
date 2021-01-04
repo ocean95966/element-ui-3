@@ -1,5 +1,5 @@
 export const props = {
-  mask: {
+  modal: {
     type: Boolean,
     default: false
   }

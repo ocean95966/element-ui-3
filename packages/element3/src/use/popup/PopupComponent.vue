@@ -1,6 +1,8 @@
 <style scope>
 .body-positon-relative {
   position: relative;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .el-mask {
   position: absolute;
@@ -8,8 +10,8 @@
   top: 0;
   z-index: 1999;
   width: 100%;
-  height: 100%;
-  background: black;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .el-popup__wrapper {
   position: fixed;
@@ -42,31 +44,37 @@ let zIndex = 2000
  */
 export default defineComponent({
   props,
-  setup() {
-    const zIndex = useZindex()
-    useBodyStyle()
+  emits: ['closeOnClickModal'],
+  setup(props, {emit}) {
+    
+    const show = ref(true)
 
-    const useMark = () => {
-      if (props.mask) {
-        // set body height
-        const bodyHeight = document.boby.clientWidth
-        return <div class="el-mask"></div>
-      }
+    const zIndex = useZindex()
+
+    useBodyStyle()
+    
+    const close = () => {
+       show.value = false;
+       emit('closeOnClickModal')
     }
+
     return {
       zIndex,
-      useMark
+      show,
+      close
     }
   },
-  render({ $props, $attrs, $slots, zIndex, useMark }) {
-    return (
-      <Teleport to="body">
-        {useMark()}
-        <div class="el-popup__wrapper" style={{ zIndex }}>
-          {$slots.default()}
-        </div>
-      </Teleport>
-    )
+  render({ $props, $attrs, $slots, zIndex, close, show }) { 
+    if (show) {
+       return (
+        <Teleport to="body">
+          {$props.modal === true ? <div class="el-mask" onClick={close}></div> : ''}
+          <div class="el-popup__wrapper" style={{ zIndex }}>
+            {$slots.default && $slots.default()}
+          </div>
+        </Teleport>
+      )
+    }
   }
 })
 </script>
