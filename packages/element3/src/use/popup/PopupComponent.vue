@@ -23,20 +23,11 @@
 }
 </style>
 <script lang="jsx">
-import {
-  defineComponent,
-  reactive,
-  computed,
-  toRaw,
-  Teleport,
-  ref,
-  getCurrentInstance,
-  onBeforeMount
-} from 'vue'
+import { defineComponent, Teleport, ref } from 'vue'
 import { props } from './props.ts'
 import { useZindex, useBodyStyle } from './use.ts'
 
-let zIndex = 2000
+// let zIndex = 2000
 
 /**
  * 管理组件
@@ -45,35 +36,39 @@ let zIndex = 2000
 export default defineComponent({
   props,
   emits: ['closeOnClickModal'],
-  setup(props, {emit}) {
-    
+  setup(props, { emit }) {
     const show = ref(true)
 
     const zIndex = useZindex()
 
-    useBodyStyle()
-    
-    const close = () => {
-       show.value = false;
-       emit('closeOnClickModal')
-    }
+    useBodyStyle(props)
 
+    const close = () => {
+      show.value = false
+      emit('closeOnClickModal')
+    }
     return {
       zIndex,
       show,
       close
     }
   },
-  render({ $props, $attrs, $slots, zIndex, close, show }) { 
+  render({ $props, $slots, zIndex, close, show }) {
     if (show) {
-       return (
+      return (
         <Teleport to="body">
-          {$props.modal === true ? <div class="el-mask" onClick={close}></div> : ''}
+          {$props.modal === true ? (
+            <div class="el-mask" onClick={close}></div>
+          ) : (
+            ''
+          )}
           <div class="el-popup__wrapper" style={{ zIndex }}>
             {$slots.default && $slots.default()}
           </div>
         </Teleport>
       )
+    } else {
+      return null
     }
   }
 })

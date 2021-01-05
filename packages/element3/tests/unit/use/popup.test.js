@@ -4,12 +4,11 @@ import { PopupComponent } from '../../../src/use/popup/index.ts'
 
 /**
  * mock 原生的tigger
- * 
+ *
  */
-Element.prototype.trigger = function(eventName){
-  this.dispatchEvent(new Event(eventName));
+Element.prototype.trigger = function (eventName) {
+  this.dispatchEvent(new Event(eventName))
 }
-
 
 describe('open a teleport', () => {
   beforeEach(() => {
@@ -33,7 +32,6 @@ describe('open a teleport', () => {
   })
 
   it('should auto increament z-index when render', () => {
-
     mount({
       components: { PopupComponent },
       template: `<PopupComponent></PopupComponent>`
@@ -53,7 +51,6 @@ describe('open a teleport', () => {
   })
 
   it('should render mask when props.mask eq true', () => {
-
     mount({
       components: { PopupComponent },
       template: `<PopupComponent :modal="true"></PopupComponent>`
@@ -63,7 +60,6 @@ describe('open a teleport', () => {
   })
 
   it('should render mask when props.mask eq false', () => {
-    
     mount({
       components: { PopupComponent },
       template: `<PopupComponent :modal="false"></PopupComponent>`
@@ -73,11 +69,11 @@ describe('open a teleport', () => {
   })
 
   it('should destory mask and teleport when click modal', async () => {
-    let clicked = false;
-    
+    let clicked = false
+
     mount({
       setup() {
-        const closeOnClickModal = () => clicked = true 
+        const closeOnClickModal = () => (clicked = true)
         return {
           closeOnClickModal
         }
@@ -93,5 +89,15 @@ describe('open a teleport', () => {
     expect(document.querySelector('.el-mask')).toBeNull()
     expect(document.querySelector('body > .el-popup__wrapper')).toBeNull()
     expect(clicked).toBeTruthy()
+  })
+  it('lockScroll', async () => {
+    mount({
+      components: { PopupComponent },
+      template: `<PopupComponent :modal="true" :lockScroll="true"><div>123</div></PopupComponent>`
+    })
+    expect(document.querySelector('.el-popup-parent--hidden')).toBeTruthy()
+    document.querySelector('.el-mask').trigger('click')
+    await nextTick()
+    expect(document.querySelector('.el-popup-parent--hidden')).toBeNull()
   })
 })

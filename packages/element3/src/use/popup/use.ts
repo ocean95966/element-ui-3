@@ -1,9 +1,4 @@
-import {
-  computed,
-  onBeforeMount,
-  onBeforeUnmount,
-  getCurrentInstance
-} from 'vue'
+import { computed, onBeforeMount, onBeforeUnmount, onUnmounted } from 'vue'
 import {
   getStyle,
   addClass,
@@ -19,7 +14,7 @@ function useZindex() {
   return computed(() => zIndex++)
 }
 
-function useBodyStyle() {
+function useBodyStyle({ lockScroll }) {
   // 如果需要遮罩层 给body 加样式
   const body = document.body
   components++
@@ -37,5 +32,11 @@ function useBodyStyle() {
       removeClass(body, 'body-positon-relative')
     }
   })
+  onUnmounted(() => {
+    if (lockScroll || !hasClass(document.body, 'el-popup-parent--hidden')) {
+      addClass(document.body, 'el-popup-parent--hidden')
+    }
+  })
 }
+
 export { useZindex, useBodyStyle }
