@@ -41,13 +41,12 @@ export default defineComponent({
 
     const zIndex = useZindex()
 
-    useBodyStyle()
+    useBodyStyle(props)
 
     const close = () => {
       show.value = false
       emit('closeOnClickModal')
     }
-
     return {
       zIndex,
       show,

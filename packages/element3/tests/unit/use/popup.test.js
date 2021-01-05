@@ -90,4 +90,14 @@ describe('open a teleport', () => {
     expect(document.querySelector('body > .el-popup__wrapper')).toBeNull()
     expect(clicked).toBeTruthy()
   })
+  it('lockScroll', async () => {
+    mount({
+      components: { PopupComponent },
+      template: `<PopupComponent :modal="true" :lockScroll="true"><div>123</div></PopupComponent>`
+    })
+    expect(document.querySelector('.el-popup-parent--hidden')).toBeTruthy()
+    document.querySelector('.el-mask').trigger('click')
+    await nextTick()
+    expect(document.querySelector('.el-popup-parent--hidden')).toBeNull()
+  })
 })
