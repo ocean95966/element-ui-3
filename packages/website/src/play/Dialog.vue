@@ -1,3 +1,11 @@
+<style>
+.test {
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  margin: 200px auto;
+}
+</style>
 <script lang="jsx">
 import { defineComponent } from 'vue'
 import { PopupComponent } from '../../../element3/src/use/popup/index.ts'
@@ -34,10 +42,12 @@ const createComponent = (type, message) => {
         if (props.modelValue) {
           return (
             <PopupComponent closeOnClickModal={true}>
-              {type} {message}
-              <br />
-              {slots.default()}
-              {slots.footer()}
+              <div class="test">
+                {type} {message}
+                <br />
+                {slots.default()}
+                {slots.footer()}
+              </div>
             </PopupComponent>
           )
         }
