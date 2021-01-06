@@ -33,7 +33,7 @@ const createComponent = (type, message) => {
       return () => {
         if (props.modelValue) {
           return (
-            <PopupComponent {...attrs} {...props} modal={true}>
+            <PopupComponent closeOnClickModal={true}>
               {type} {message}
               <br />
               {slots.default()}

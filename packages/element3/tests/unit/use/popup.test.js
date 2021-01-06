@@ -50,14 +50,12 @@ describe('open a teleport', () => {
     ).toBe('2002')
   })
 
-  it('should destory mask and teleport when click modal', async () => {
+  it(' click modal should destory teleport and teleport when closeOnClickModal eq true ', async () => {
     let clicked = false
-
     mount({
       setup() {
         const close = () => (clicked = true)
         return {
-          closeOnClickModal: true,
           close
         }
       },
@@ -72,6 +70,28 @@ describe('open a teleport', () => {
     expect(document.querySelector('body > .el-popup__wrapper')).toBeNull()
     expect(clicked).toBeTruthy()
   })
+
+  it('click modal should not destory teleport and teleport when closeOnClickModal eq false', async () => {
+    let clicked = false
+    mount({
+      setup() {
+        const close = () => (clicked = true)
+        return {
+          close
+        }
+      },
+      components: { PopupComponent },
+      template: `<PopupComponent :closeOnClickModal="false" @close="close"></PopupComponent>`
+    })
+
+    document.querySelector('.el-popup__wrapper').trigger('click')
+
+    await nextTick()
+
+    expect(document.querySelector('body > .el-popup__wrapper')).not.toBeNull()
+    expect(clicked).toBeFalsy()
+  })
+
   it('lockScroll', async () => {
     mount({
       components: { PopupComponent },
