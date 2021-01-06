@@ -1,9 +1,9 @@
 export const props = {
-  modal: {
+  lockScroll: {
     type: Boolean,
     default: false
   },
-  lockScroll: {
+  closeOnClickModal: {
     type: Boolean,
     default: false
   }

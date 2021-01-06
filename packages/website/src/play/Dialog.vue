@@ -1,6 +1,6 @@
 <script lang="jsx">
 import { defineComponent } from 'vue'
-import { PopupComponent } from 'A:/www/element3/packages/element3/src/use/popup/index.ts'
+import { PopupComponent } from '../../../element3/src/use/popup/index.ts'
 
 const createComponent = (type, message) => {
   return defineComponent({
@@ -33,7 +33,7 @@ const createComponent = (type, message) => {
       return () => {
         if (props.modelValue) {
           return (
-            <PopupComponent {...attrs} {...{ props }} {...{ mask: true }}>
+            <PopupComponent {...attrs} {...props} modal={true}>
               {type} {message}
               <br />
               {slots.default()}

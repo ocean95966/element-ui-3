@@ -1,12 +1,6 @@
 <template>
   <div>
-    <Dialog title="hello word" v-model="show">
-      <span @click="clickHandle">fdsfsdafsdafsdaf</span>
-      <template v-slot:footer>
-        <div class="dialog-footer" style="color: red">this is footer</div>
-      </template>
-    </Dialog>
-    <Dialog title="hello word" v-model="show">
+    <Dialog title="hello word" v-model="show" :closeOnClickModal="true">
       <span @click="clickHandle">fdsfsdafsdafsdaf</span>
       <template v-slot:footer>
         <div class="dialog-footer" style="color: red">this is footer</div>

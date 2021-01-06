@@ -35,7 +35,7 @@ import { useZindex, useBodyStyle } from './use.ts'
  */
 export default defineComponent({
   props,
-  emits: ['closeOnClickModal'],
+  emits: ['close'],
   setup(props, { emit }) {
     const show = ref(true)
 
@@ -44,9 +44,12 @@ export default defineComponent({
     useBodyStyle(props)
 
     const close = () => {
-      show.value = false
-      emit('closeOnClickModal')
+      if (props.closeOnClickModal) {
+        show.value = false
+        emit('close')
+      }
     }
+
     return {
       zIndex,
       show,
@@ -57,12 +60,7 @@ export default defineComponent({
     if (show) {
       return (
         <Teleport to="body">
-          {$props.modal === true ? (
-            <div class="el-mask" onClick={close}></div>
-          ) : (
-            ''
-          )}
-          <div class="el-popup__wrapper" style={{ zIndex }}>
+          <div class="el-popup__wrapper" style={{ zIndex }} onClick={close}>
             {$slots.default && $slots.default()}
           </div>
         </Teleport>

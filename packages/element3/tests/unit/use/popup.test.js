@@ -50,43 +50,25 @@ describe('open a teleport', () => {
     ).toBe('2002')
   })
 
-  it('should render mask when props.mask eq true', () => {
-    mount({
-      components: { PopupComponent },
-      template: `<PopupComponent :modal="true"></PopupComponent>`
-    })
-
-    expect(document.querySelector('.el-mask')).not.toBeNull()
-  })
-
-  it('should render mask when props.mask eq false', () => {
-    mount({
-      components: { PopupComponent },
-      template: `<PopupComponent :modal="false"></PopupComponent>`
-    })
-
-    expect(document.querySelector('.el-mask')).toBeNull()
-  })
-
   it('should destory mask and teleport when click modal', async () => {
     let clicked = false
 
     mount({
       setup() {
-        const closeOnClickModal = () => (clicked = true)
+        const close = () => (clicked = true)
         return {
-          closeOnClickModal
+          closeOnClickModal: true,
+          close
         }
       },
       components: { PopupComponent },
-      template: `<PopupComponent :modal="true" @closeOnClickModal="closeOnClickModal"></PopupComponent>`
+      template: `<PopupComponent :closeOnClickModal="true" @close="close"></PopupComponent>`
     })
 
-    document.querySelector('.el-mask').trigger('click')
+    document.querySelector('.el-popup__wrapper').trigger('click')
 
     await nextTick()
 
-    expect(document.querySelector('.el-mask')).toBeNull()
     expect(document.querySelector('body > .el-popup__wrapper')).toBeNull()
     expect(clicked).toBeTruthy()
   })
@@ -96,7 +78,7 @@ describe('open a teleport', () => {
       template: `<PopupComponent :modal="true" :lockScroll="true"><div>123</div></PopupComponent>`
     })
     expect(document.querySelector('.el-popup-parent--hidden')).toBeTruthy()
-    document.querySelector('.el-mask').trigger('click')
+    document.querySelector('.el-popup__wrapper').trigger('click')
     await nextTick()
     expect(document.querySelector('.el-popup-parent--hidden')).toBeNull()
   })
