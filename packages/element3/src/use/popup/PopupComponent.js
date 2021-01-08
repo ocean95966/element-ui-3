@@ -4,14 +4,14 @@ import { useZindex, useBodyScroll } from './use'
 
 const popupWrapper = {
   render({ $slots }) {
-    return h('div', null, $slots.default ? $slots.default() : null)
+    return <div>{$slots.default ? $slots.default() : null}</div>
   }
 }
 
 export default {
   props,
   emits: ['close'],
-  setup(props, { emit, attrs }) {
+  setup(props, { emit }) {
     const show = ref(true)
 
     const zIndex = useZindex()
@@ -31,25 +31,17 @@ export default {
       close
     }
   },
-  render({ $props, $attrs, $slots, zIndex, close, show }) {
-    return show
-      ? h(
-          Teleport,
-          {
-            to: 'body'
-          },
-          h(
-            popupWrapper,
-            {
-              style: {
-                zIndex
-              },
-              class: $attrs.class,
-              onClick: close
-            },
-            $slots?.default
-          )
-        )
-      : null
+  render({ $attrs, $slots, zIndex, close, show }) {
+    if (show) {
+      return (
+        <Teleport to="body">
+          <popupWrapper style={{ zIndex }} class={$attrs.class} onClick={close}>
+            {$slots.default ? $slots.default() : null}
+          </popupWrapper>
+        </Teleport>
+      )
+    }
+
+    return null
   }
 }

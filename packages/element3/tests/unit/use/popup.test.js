@@ -14,7 +14,7 @@ describe('open a teleport', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
   })
-  it('should render teleport when call open method', () => {
+  it('should render teleport when call PopupComponent component', () => {
     const slotText = 'test'
     mount({
       components: { PopupComponent },
