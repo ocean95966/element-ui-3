@@ -23,7 +23,7 @@
 }
 </style>
 <script lang="jsx">
-import { defineComponent, Teleport, ref } from 'vue'
+import { defineComponent, Teleport, ref, h } from 'vue'
 import { props } from './props.ts'
 import { useZindex, useBodyPosition, useBodyScroll } from './use.ts'
 
@@ -33,7 +33,57 @@ import { useZindex, useBodyPosition, useBodyScroll } from './use.ts'
  * 管理组件
  *
  */
-export default defineComponent({
+//  defineComponent({
+//   props,
+//   emits: ['close'],
+//   setup(props, { emit }) {
+//     const show = ref(true)
+
+//     const zIndex = useZindex()
+//     useBodyPosition()
+//     useBodyScroll(props)
+
+//     const close = () => {
+//       if (props.closeOnClickModal) {
+//         show.value = false
+//         emit('close')
+//       }
+//     }
+
+//     return {
+//       zIndex,
+//       show,
+//       close
+//     }
+//   },
+//   render({ $props, $slots, zIndex, close, show }) {
+//     if (show) {
+//       return (
+//         <Teleport to="body">
+//           <div class="el-popup__wrapper" style={{ zIndex }} onClick={close}>
+//             {$slots.default && $slots.default()}
+//           </div>
+//         </Teleport>
+//       )
+//     } else {
+//       return null
+//     }
+//   }
+// })
+
+const popupWrapper = {
+  render({ $slots }) {
+    return h(
+      'div',
+      {
+        class: 'el-popup__wrapper'
+      },
+      $slots.default()
+    )
+  }
+}
+
+export default {
   props,
   emits: ['close'],
   setup(props, { emit }) {
@@ -57,17 +107,15 @@ export default defineComponent({
     }
   },
   render({ $props, $slots, zIndex, close, show }) {
-    if (show) {
-      return (
-        <Teleport to="body">
-          <div class="el-popup__wrapper" style={{ zIndex }} onClick={close}>
-            {$slots.default && $slots.default()}
-          </div>
-        </Teleport>
-      )
-    } else {
-      return null
-    }
+    return show
+      ? h(
+          Teleport,
+          {
+            to: 'body'
+          },
+          h(popupWrapper, null, $slots.default)
+        )
+      : null
   }
-})
+}
 </script>
