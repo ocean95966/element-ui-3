@@ -8,7 +8,7 @@
 </style>
 <script lang="jsx">
 import { defineComponent } from 'vue'
-import { PopupComponent } from '../../../element3/src/use/popup/index.ts'
+import { PopupComponent } from '../../../element3/src/use/popup/index.js'
 
 const createComponent = (type, message) => {
   return defineComponent({
@@ -41,7 +41,7 @@ const createComponent = (type, message) => {
       return () => {
         if (props.modelValue) {
           return (
-            <PopupComponent closeOnClickModal={true}>
+            <PopupComponent class="el-dialog__wrapper" closeOnClickModal={true}>
               <div class="test">
                 {type} {message}
                 <br />

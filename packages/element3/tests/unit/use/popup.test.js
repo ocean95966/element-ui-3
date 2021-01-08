@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
-import { PopupComponent } from '../../../src/use/popup/index.ts'
+import { nextTick, ref } from 'vue'
+import { PopupComponent } from '../../../src/use/popup/index'
 
 /**
  * mock 原生的tigger
@@ -18,13 +18,13 @@ describe('open a teleport', () => {
     const slotText = 'test'
     mount({
       components: { PopupComponent },
-      template: `<PopupComponent>${slotText}</PopupComponent>`
+      template: `<PopupComponent class="el-dialog__wrapper">${slotText}</PopupComponent>`
     })
 
-    expect(document.querySelector('body > .el-popup__wrapper')).not.toBeNull()
+    expect(document.querySelector('body > .el-dialog__wrapper')).not.toBeNull()
     expect(
       getComputedStyle(
-        document.querySelector('body > .el-popup__wrapper'),
+        document.querySelector('body > .el-dialog__wrapper'),
         null
       ).getPropertyValue('z-index')
     ).toBe('2000')
@@ -34,12 +34,12 @@ describe('open a teleport', () => {
   it('should auto increament z-index when render', () => {
     mount({
       components: { PopupComponent },
-      template: `<PopupComponent></PopupComponent>`
+      template: `<PopupComponent class="el-popup__wrapper"></PopupComponent>`
     })
 
     mount({
       components: { PopupComponent },
-      template: `<PopupComponent></PopupComponent>`
+      template: `<PopupComponent class="el-popup__wrapper"></PopupComponent>`
     })
 
     expect(
@@ -60,7 +60,7 @@ describe('open a teleport', () => {
         }
       },
       components: { PopupComponent },
-      template: `<PopupComponent :closeOnClickModal="true" @close="close"></PopupComponent>`
+      template: `<PopupComponent class="el-popup__wrapper" :closeOnClickModal="true" @close="close"></PopupComponent>`
     })
 
     document.querySelector('.el-popup__wrapper').trigger('click')
@@ -81,7 +81,7 @@ describe('open a teleport', () => {
         }
       },
       components: { PopupComponent },
-      template: `<PopupComponent :closeOnClickModal="false" @close="close"></PopupComponent>`
+      template: `<PopupComponent class="el-popup__wrapper" :closeOnClickModal="false" @close="close"></PopupComponent>`
     })
 
     document.querySelector('.el-popup__wrapper').trigger('click')
@@ -94,9 +94,17 @@ describe('open a teleport', () => {
 
   it('lockScroll', async () => {
     mount({
+      setup() {
+        const show = ref(true)
+
+        return {
+          show
+        }
+      },
       components: { PopupComponent },
-      template: `<PopupComponent :modal="true" :lockScroll="true"><div>123</div></PopupComponent>`
+      template: `<PopupComponent v-if="show" class="el-popup__wrapper" :close="show = false" :lockScroll="true"><div>123</div></PopupComponent>`
     })
+
     expect(document.querySelector('.el-popup-parent--hidden')).toBeTruthy()
     document.querySelector('.el-popup__wrapper').trigger('click')
     await nextTick()

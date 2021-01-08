@@ -7,6 +7,13 @@
       </template>
       <button @click="show = false">点击我关闭</button>
     </Dialog>
+    <!-- <el-dialog
+      title="提示"
+      :visible="true"
+      width="30%"
+      :close-on-click-modal="true"
+      center
+    ></el-dialog> -->
   </div>
 </template>
 <script>
