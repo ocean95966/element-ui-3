@@ -25,7 +25,7 @@
 <script lang="jsx">
 import { defineComponent, Teleport, ref } from 'vue'
 import { props } from './props.ts'
-import { useZindex, useBodyStyle } from './use.ts'
+import { useZindex, useBodyPosition, useBodyScroll } from './use.ts'
 
 // let zIndex = 2000
 
@@ -40,8 +40,8 @@ export default defineComponent({
     const show = ref(true)
 
     const zIndex = useZindex()
-
-    useBodyStyle(props)
+    useBodyPosition()
+    useBodyScroll(props)
 
     const close = () => {
       if (props.closeOnClickModal) {
